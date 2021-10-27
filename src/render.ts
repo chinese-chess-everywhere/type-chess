@@ -1,36 +1,30 @@
 import type { 棋局, 棋局行, 棋局单元, 默认棋局 } from './situation'
-import type { 棋子 } from './chess'
-import type { 红色, 黑色, 棋子颜色 } from './color'
-import type { 将, 士, 象, 马, 车, 炮, 兵, 棋子种类 } from './kind'
-import type { 不可能, 空, 是 } from './utils'
-import type { 棋子横坐标, 棋子纵坐标 } from './position'
-import type { 相等, 零 } from './integer'
+import type { 棋子, 构造棋子 } from './chess'
+import type { 红色 } from './color'
+import type { 将 } from './kind'
+import type { 不可能 } from './utils'
 
-type 渲染棋子<某个棋子> = 某个棋子 extends 棋子<infer 颜色, infer 种类>
-  ? 颜色 extends 棋子颜色
-    ? 种类 extends 棋子种类
-      ? {
-          红: {
-            将: '帅'
-            士: '仕'
-            象: '相'
-            马: '傌'
-            车: '俥'
-            炮: '炮'
-            兵: '兵'
-          }
-          黑: {
-            将: '将'
-            士: '士'
-            象: '象'
-            马: '马'
-            车: '车'
-            炮: '炮'
-            兵: '卒'
-          }
-        }[某个棋子['颜色']][某个棋子['种类']]
-      : 不可能
-    : 不可能
+type 渲染棋子<某个棋子> = 某个棋子 extends 棋子
+  ? {
+      红: {
+        将: '帅'
+        士: '仕'
+        象: '相'
+        马: '傌'
+        车: '俥'
+        炮: '炮'
+        兵: '兵'
+      }
+      黑: {
+        将: '将'
+        士: '士'
+        象: '象'
+        马: '马'
+        车: '车'
+        炮: '炮'
+        兵: '卒'
+      }
+    }[某个棋子['颜色']][某个棋子['种类']]
   : 不可能
 
 type 渲染单元格<某单元格> = 某单元格 extends 棋子 ? 渲染棋子<某单元格> : '一'
@@ -62,7 +56,7 @@ export type 渲染棋局<某个棋局 extends 棋局> = 渲染行链表<某个�
 /**
  * 测试代码
  */
-type 测试渲染棋子0 = 渲染单元格<棋子<红色, 将>>
+type 测试渲染棋子0 = 渲染单元格<构造棋子<红色, 将>>
 
 type 测试渲染棋局的一行0 = 渲染单元链表<默认棋局['内容']['内容'], ''>
 type 测试渲染棋局的一行1 = 渲染单元链表<
