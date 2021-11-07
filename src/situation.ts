@@ -332,7 +332,7 @@ export type 该位置没有棋子<
   某个位置 extends 棋子坐标
 > = 空 extends 获取棋局某位置的棋子<当前棋局, 某个位置> ? 是 : 否
 
-type 该位置有棋子<
+export type 该位置有棋子<
   当前棋局 extends 棋局,
   某个位置 extends 棋子坐标
 > = 获取棋局某位置的棋子<当前棋局, 某个位置> extends 棋子 ? 是 : 否
